@@ -1,3 +1,6 @@
+Forked from [Anton Beloglazov](http://beloglazov.info/)'s GitHub
+[repo](https://github.com/beloglazov/arch-xmonad-zsh). His project has no license (yet).
+
 This is my configuration of Arch Linux + Xmonad + Zsh. The repository includes the following
 configuration files:
 
