@@ -17,6 +17,7 @@ configuration files:
 
 Apart from that, simple installation scripts are also included.
 
+
 # Installation
 
 First of all, you need to clone this repository to any directory you want:
@@ -43,3 +44,10 @@ startx
 ```
 
 Enjoy!
+
+
+## License
+
+The source code is released under the Apache 2.0 license.
+
+Copyright (C) 2013 Anton Beloglazov

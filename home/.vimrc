@@ -39,10 +39,18 @@ let g:SuperTabMappingBackward = '<s-tab>'
 
 Bundle 'goldfeld/vim-seek'
 
+Bundle 'jiangmiao/auto-pairs'
+let g:AutoPairsMapSpace = 0
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<C-b>'
+let g:AutoPairsShortcutFastWrap = '<C-y>'
+let g:AutoPairsShortcutJump = '<C-z>'
+
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_prompt_mappings = { 'PrtExit()': ['<esc>', '<c-q>'] }
+let g:ctrlp_max_height = 30
 noremap <leader>p :CtrlP<CR>
 noremap <leader>P :CtrlPCurFile<CR>
 noremap <leader>b :CtrlPBuffer<CR>
@@ -57,6 +65,7 @@ let g:pymode_folding = 0
 let g:pymode_lint_cwindow = 0
 let g:pymode_lint_message = 0
 let g:pymode_doc_key = 'NONE'
+let g:pymode_lint_ignore = 'W0401,E125,C901'
 let g:pymode_breakpoint_key = '<localleader>b'
 let g:pymode_options = 0
 autocmd FileType python noremap <F5> :PyLint<CR>
@@ -71,19 +80,19 @@ autocmd FileType python setlocal commentstring=#%s
 
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 let g:LatexBox_complete_inlineMath = 1
-autocmd bufreadpre *.tex let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-autocmd bufreadpre *.tex let g:SuperTabLongestHighlight = 1
-autocmd bufreadpre *.tex setlocal tabstop=2
-autocmd bufreadpre *.tex setlocal softtabstop=2
-autocmd bufreadpre *.tex setlocal shiftwidth=2
-autocmd bufreadpre *.tex setlocal expandtab
-autocmd bufreadpre *.tex nmap <leader>t :LatexTOCToggle<CR>
-autocmd bufreadpre *.tex imap <buffer> [[ \begin{
-autocmd bufreadpre *.tex imap <buffer> ]] <Plug>LatexCloseCurEnv
-autocmd bufreadpre *.tex nmap <buffer> <F5> <Plug>LatexChangeEnv
-autocmd bufreadpre *.tex vmap <buffer> <F6> <Plug>LatexWrapSelection
-autocmd bufreadpre *.tex vmap <buffer> <F7> <Plug>LatexEnvWrapSelection
-autocmd bufreadpre *.tex AcpLock
+autocmd BufReadPre *.tex let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+autocmd BufReadPre *.tex let g:SuperTabLongestHighlight = 1
+autocmd BufReadPre *.tex setlocal tabstop=2
+autocmd BufReadPre *.tex setlocal softtabstop=2
+autocmd BufReadPre *.tex setlocal shiftwidth=2
+autocmd BufReadPre *.tex setlocal expandtab
+autocmd BufReadPre *.tex nmap <leader>t :LatexTOCToggle<CR>
+autocmd BufReadPre *.tex imap <buffer> [[ \begin{
+autocmd BufReadPre *.tex imap <buffer> ]] <Plug>LatexCloseCurEnv
+autocmd BufReadPre *.tex nmap <buffer> <F5> <Plug>LatexChangeEnv
+autocmd BufReadPre *.tex vmap <buffer> <F6> <Plug>LatexWrapSelection
+autocmd BufReadPre *.tex vmap <buffer> <F7> <Plug>LatexEnvWrapSelection
+autocmd BufReadPre *.tex AcpLock
 
 " Bundle 'millermedeiros/vim-statline'
 Bundle 'beloglazov/vim-statline'
@@ -98,9 +107,10 @@ Bundle 'molok/vim-smartusline'
 let g:smartusline_string_to_highlight = '[%n]'
 
 Bundle 'scrooloose/nerdtree'
-let NERDTreeShowHidden=1
-noremap <f1> :NERDTreeToggle<CR>
-noremap <f2> :NERDTreeFind<CR>
+let NERDTreeShowHidden = 1
+let NERDTreeIgnore = ['.*\.pyc$']
+noremap <silent> <f1> :NERDTreeToggle<CR>
+noremap <silent> <f2> :NERDTreeFind<CR>
 
 Bundle 'tacahiroy/ctrlp-funky'
 let g:ctrlp_extensions = ['funky']
@@ -113,6 +123,7 @@ Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-commentary'
 
 Bundle 'tpope/vim-fugitive'
+noremap <silent> <f12> :Gstatus<CR>
 
 Bundle 'tpope/vim-markdown'
 
@@ -120,15 +131,17 @@ Bundle 'tpope/vim-repeat'
 
 Bundle 'tpope/vim-surround'
 
-Bundle 'tpope/vim-unimpaired'
+Bundle 'milkypostman/vim-togglelist'
+let g:toggle_list_no_mappings = 1
+nnoremap <script> <silent> <f10> :call ToggleQuickfixList()<CR>
 
-Bundle 'vim-scripts/Auto-Pairs'
+Bundle 'tpope/vim-unimpaired'
 
 Bundle 'vim-scripts/AutoComplPop'
 let g:acp_completeoptPreview = 1
 
 Bundle 'vim-scripts/InsertChar'
-nnoremap <leader>c :<C-u>call InsertChar#insert(v:count1)<CR>
+nnoremap <leader><Space> :<C-u>call InsertChar#insert(v:count1)<CR>
 
 Bundle 'vim-scripts/taglist.vim'
 let Tlist_Auto_Update = 1
@@ -139,7 +152,12 @@ let Tlist_Enable_Fold_Column = 0
 let Tlist_File_Fold_Auto_Close = 1
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Highlight_Tag_On_BufEnter = 1
-noremap <leader>t :TlistToggle<CR>
+noremap <silent> <leader>t :TlistToggle<CR>
+
+" Bundle 'SirVer/ultisnips'
+
+Bundle 'vim-scripts/YankRing.vim'
+nnoremap <silent> <F3> :YRShow<CR>
 
 " End of my bundles
 
@@ -153,10 +171,10 @@ set t_Co=256
 hi StatusLine   cterm=reverse ctermfg=233 ctermbg=4
 hi StatusLineNC cterm=reverse ctermfg=233 ctermbg=8
 hi VertSplit    cterm=reverse ctermfg=233 ctermbg=8
-hi Search     ctermbg=NONE
-hi Error      ctermbg=NONE ctermfg=red
-hi SignColumn ctermbg=233
-hi FoldColumn ctermbg=233
+hi Search       ctermbg=NONE
+hi Error        ctermbg=NONE ctermfg=red
+hi SignColumn   ctermbg=233
+hi FoldColumn   ctermbg=233
 
 " Encoding
 set encoding=utf-8
@@ -187,7 +205,7 @@ set clipboard=unnamedplus
 set wildmenu
 set wildmode=longest:full,full
 set wildcharm=<Tab>
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc,*/.ropeproject/*,*.egg,*.egg-info/*
 
 " Scrolling by blocks
 set scrolloff=3
@@ -231,30 +249,133 @@ set spellfile=~/.vim/spell.en.add
 nmap <leader>= 1z=
 
 " Yaml
-autocmd bufreadpre *.yaml setlocal nowrap
-autocmd bufreadpre *.yaml setlocal tabstop=2
-autocmd bufreadpre *.yaml setlocal softtabstop=2
-autocmd bufreadpre *.yaml setlocal shiftwidth=2
+autocmd BufReadPre *.yaml setlocal nowrap
+autocmd BufReadPre *.yaml setlocal tabstop=2
+autocmd BufReadPre *.yaml setlocal softtabstop=2
+autocmd BufReadPre *.yaml setlocal shiftwidth=2
+autocmd BufReadPre *.yaml highlight link yamlPathKeyword Keyword
+autocmd BufEnter,BufNew,BufReadPost *.yaml match yamlPathKeyword "\v[a-zA-Z0-9-_.*]*(/|\.)[a-zA-Z0-9-_.*]*"
+
 
 
 " Key bindings
 
+" Open .vimrc
+nnoremap <leader>ve :split $MYVIMRC<CR>
+
+" Source .vimrc
+nnoremap <leader>vs :source $MYVIMRC<CR>i<Esc>
+
 " Escape
 inoremap jk <Esc>`^
-inoremap kj <Esc>`^
+" inoremap kj <Esc>`^
 inoremap <C-q> <Esc>`^
 noremap <C-q> <Esc>
 vnoremap <C-q> <Esc>
 cmap <C-q> <C-c>
 
 " Enter the command-line mode
-noremap <leader><Space> :
+noremap <CR> :
 
 " Better command-line editing
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+
+" Operator movements
+onoremap p i(
+onoremap b i{
+onoremap ( i(
+onoremap { i{
+onoremap [ i[
+onoremap < i<
+onoremap q i'
+onoremap ` i"
+onoremap ' i'
+onoremap " i"
+onoremap np :<C-u>normal! f(lvi(<CR>
+onoremap n( :<C-u>normal! f(lvi(<CR>
+onoremap n{ :<C-u>normal! f{lvi{<CR>
+onoremap nb :<C-u>normal! fblvib<CR>
+onoremap n[ :<C-u>normal! f[lvi[<CR>
+onoremap n< :<C-u>normal! f<lvi<<CR>
+onoremap nq :<C-u>normal! f'lvi'<CR>
+onoremap n` :<C-u>normal! f"lvi"<CR>
+onoremap n' :<C-u>normal! f'lvi'<CR>
+onoremap n" :<C-u>normal! f"lvi"<CR>
+
+onoremap q :<C-u>call <SID>SmartMotionsQuote()<CR>
+nnoremap <leader>A :call <SID>GetClosestCharInFront()<CR>
+
+function! s:GetClosestCharInFront()
+    let s:chars = ['"', "'"]
+    return s:GetClosestChar(s:chars, 1)
+endfunction
+
+function! s:GetClosestChar(chars, direction)
+    " let s:chars = ['"', "'"]
+    let s:line = getline('.')
+    let s:col = col('.')
+    if a:direction
+        let s:range = range(s:col, len(s:line))
+    else
+        let s:range = range(0, s:col - 1)
+    endif
+    " echom s:col
+    " echom s:line
+    for s:c in s:range
+        if index(a:chars, s:line[s:c]) > -1
+            echom s:line[s:c]
+            return
+        endif
+    endfor
+    echom "Not found"
+endfunction
+
+" test 'qwe1' asd 'qwe' asd 'qwe3' asd
+" test `qwe1` asd `qwe2` asd `qwe3` asd
+function! s:SmartMotionsQuote()
+    let s:line = getline('.')
+    " let s:column = getpos('.')[2]
+    let s:column = col('.')
+    let s:lineHead = s:line[: s:column - 1]
+    let s:lineTail = s:line[s:column :]
+    let s:quotes = ["'", '"']
+    let s:headQuoteCnts = {}
+    let s:tailQuoteCnts = {}
+    let s:totalQuoteCnts = {}
+
+    " echom string(searchpos("'", 'cs'))
+
+    for s:q in s:quotes
+        let s:headQuoteCnts[s:q] = strlen(substitute(s:lineHead, '[^' . s:q . ']', '', 'g'))
+        let s:tailQuoteCnts[s:q] = strlen(substitute(s:lineTail, '[^' . s:q . ']', '', 'g'))
+        let s:totalQuoteCnts[s:q] = s:headQuoteCnts[s:q] + s:tailQuoteCnts[s:q]
+    endfor
+
+    for s:q in s:quotes
+        " if s:headQuoteCnts[s:q] % 2 && !(s:totalQuoteCnts[s:q] % 2)
+        if s:headQuoteCnts[s:q] % 2 && s:tailQuoteCnts[s:q] > 0
+            exec 'normal! vi' . s:q
+            return
+        endif
+    endfor
+
+    for s:q in s:quotes
+        if s:tailQuoteCnts[s:q] > 0
+            exec 'normal! f' . s:q . 'lvi'. s:q
+            return
+        endif
+    endfor
+
+    for s:q in s:quotes
+        if s:headQuoteCnts[s:q] > 0
+            exec 'normal! F' . s:q . 'vi'. s:q
+            return
+        endif
+    endfor
+endfunction
 
 " Home row beginning / end of line
 noremap H ^
@@ -316,6 +437,9 @@ noremap <leader>e :e <Tab>
 " Scroll screen with the cursor
 noremap <C-j> j<C-e>
 noremap <C-k> k<C-y>
+
+" Very magic regex search by default
+nnoremap / /\v
 
 " Center the screen with search jumps
 noremap n nzz
